@@ -2,6 +2,7 @@
 ViewData["Title"] = "Manage Programs - Enrollment System";
 Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust if needed
 }
+@RenderSection("Styles", required: false) 
 
 @section Styles {
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
@@ -101,8 +102,5 @@ Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust if needed
 
 @section Scripts {
 <script src="~/Content/bootstrap.bundle.min.js"></script>
-<script>
-    // Insert your full JavaScript logic here unchanged
-    // Make sure URL paths for editing/deleting courses use `@Url.Action` or similar if needed server-side
-</script>
+
 }

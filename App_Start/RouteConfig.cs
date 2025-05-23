@@ -26,6 +26,15 @@ namespace Fresh_University_Enrollment
                 url: "Home/Schedule",
                 defaults: new { controller = "Main", action = "Student_Schedule" }
             );
+            
+            
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "SignUpEntry",
+                url: "Auth/SignUp/Entry",
+                defaults: new { controller = "SignUp", action = "Entry" }
+            );
+            
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
         
             // Add this specific route before the default route
