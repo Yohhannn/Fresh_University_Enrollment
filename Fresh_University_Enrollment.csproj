@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,13 +172,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Auth\LoginController.cs" />
+    <Compile Include="Controllers\Auth\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\PasswordUtil.cs" />
@@ -225,6 +227,7 @@
     <Content Include="Scripts\JQuery\jquery.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyScript\LogIn.js" />
+    <Content Include="Scripts\MyScript\LogInFaculty.js" />
     <Content Include="Scripts\MyScript\SignUp.js" />
     <Content Include="Views\Admin\AddProgram.cshtml" />
     <Content Include="Views\Admin\Courses.cshtml" />
@@ -232,6 +235,7 @@
     <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\Admin\EditProgram.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Auth\LogInFaculty.cshtml" />
     <Content Include="Views\Auth\SignUp.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Main\ClassSchedule.cshtml" />

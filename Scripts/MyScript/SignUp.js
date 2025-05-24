@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: '/Auth/SignUp/Entry',
+            url: '/Auth/Entry',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(student),
             success: function (response) {

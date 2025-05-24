@@ -1,0 +1,113 @@
+﻿@{
+Layout = null;
+ViewBag.Title = "Admin Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .login-header-nav-wrapper {
+            width: 100%;
+            background-color: #e9ecef;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,.05);
+            margin-bottom: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .login-header-nav {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .login-header-nav a {
+            padding: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .login-header-nav a.active {
+            color: #343a40;
+            font-weight: 700;
+            cursor: default;
+        }
+
+        .login-header-nav a:not(.active):hover {
+            text-decoration: underline;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 80px;
+        }
+        .form-control.is-invalid:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<div class="login-header-nav-wrapper">
+    <div class="login-header-nav">
+        <a href="@Url.Action("LogIn", "Auth")">Student</a> |
+        <a href="@Url.Action("LoginFaculty", "Auth")">Faculty</a>
+    </div>
+</div>
+
+<div class="login-container">
+    <h2 class="text-center mb-4">Faculty Login</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+    {
+    <div class="alert alert-danger text-center">
+        @ViewBag.ErrorMessage
+    </div>
+    }
+
+    <div>
+
+        <div class="mb-3">
+            @Html.Label("Id", "Username", new { @class = "form-label" })
+            @Html.TextBox("username", null, new { @class = "form-control", @id = "username", placeholder = "Enter Username" })
+            <div hidden id="user-inv" class="invalid-feedback">Please enter your username</div>
+        </div>
+        <div class="mb-3">
+            @Html.Label("password", "Password", new { @class = "form-label" })
+            @Html.Password("password", null, new { @class = "form-control", @id = "password", placeholder = "Enter Password" })
+            <div hidden id="pass-inv"class="invalid-feedback">Please enter your password</div>
+        </div>
+
+        <button id="btn" type="submit" class="btn btn-primary w-100">Login</button>
+    </div>
+</div>
+
+<script src="~/Scripts/JQuery/jquery.js"></script>
+<script src="~/Scripts/MyScript/LogInFaculty.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

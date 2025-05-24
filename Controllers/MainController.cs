@@ -32,25 +32,6 @@ namespace Fresh_University_Enrollment.Controllers
             // View is located at Views/Auth/Login.cshtml
             return View("~/Views/Main/ClassSchedule.cshtml");
         }
-        // public ActionResult LoginTeacher()
-        // {
-        //     return View("~/Views/Auth/LoginTeacher.cshtml");
-        // }
-        //
-        // public ActionResult LoginHead()
-        // {
-        //     return View("~/Views/Auth/LoginProgramHead.cshtml");
-        //
-        // }
-        //
-        // public ActionResult LoginAdmin()
-        // {
-        //     return View("~/Views/Auth/LoginAdmin.cshtml");
-        // }
-        //
-        // public ActionResult SignUp()
-        // {
-        //     return View("~/Views/Auth/SignUp.cshtml");
-        // }
+        
     }
 }
