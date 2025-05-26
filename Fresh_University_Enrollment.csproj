@@ -177,7 +177,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProgramHeadController.cs" />
-    <Compile Include="Controllers\StudentEnrollment.cs" />
+    <Compile Include="Controllers\StudentEnrollmentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

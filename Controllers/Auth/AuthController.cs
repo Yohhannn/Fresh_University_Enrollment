@@ -209,9 +209,9 @@ public ActionResult LoginFaculty(Faculty faculty)
                     using (var cmd = db.CreateCommand())
                     {
                         cmd.CommandText = @"
-                            SELECT STUD_CODE, STUD_FNAME, STUD_LNAME, STUD_EMAIL, STUD_PASSWORD 
-                            FROM STUDENT 
-                            WHERE STUD_CODE = @studCode";
+                            SELECT stud_code, stud_fname, stud_lname, stud_email, stud_password 
+                            FROM student 
+                            WHERE stud_code = @studCode";
 
                         // Explicitly define the parameter with correct type
                         cmd.Parameters.Add(new NpgsqlParameter<int>("@studCode", studCode));
@@ -231,13 +231,15 @@ public ActionResult LoginFaculty(Faculty faculty)
                             {
                                 return Json(new { success = false, message = "Invalid student code or password." }, JsonRequestBehavior.AllowGet);
                             }
+                            
+                            Session["Stud_Code"] = reader.GetInt32(reader.GetOrdinal("STUD_CODE"));
 
                             var studentData = new
                             {
-                                Stud_Code = reader.GetInt32(reader.GetOrdinal("STUD_CODE")),
-                                Stud_Fname = reader["STUD_FNAME"].ToString(),
-                                Stud_Lname = reader["STUD_LNAME"].ToString(),
-                                Stud_Email = reader["STUD_EMAIL"].ToString()
+                                Stud_Code = reader.GetInt32(reader.GetOrdinal("stud_code")),
+                                Stud_Fname = reader["stud_fname"].ToString(),
+                                Stud_Lname = reader["stud_lname"].ToString(),
+                                Stud_Email = reader["stud_email"].ToString()
                             };
 
                             return Json(new

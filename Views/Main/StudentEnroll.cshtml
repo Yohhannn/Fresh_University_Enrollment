@@ -1,3 +1,5 @@
+@model Fresh_University_Enrollment.Models.Student   
+
 @{
     Layout = null; 
 }
@@ -54,7 +56,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="studentId" class="form-label">Student ID</label>
-                        <input type="text" class="form-control" id="studentId" name="studentId" placeholder="Enter Student ID">
+                        @Html.TextBoxFor(model => model.Stud_Code, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
 
@@ -95,31 +97,31 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name">
+                        @Html.TextBoxFor(model => model.Stud_Lname, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                     <div class="col-md-4">
                         <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name">
+                        @Html.TextBoxFor(model => model.Stud_Fname, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                     <div class="col-md-4">
                         <label for="middleName" class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Enter Middle Name">
+                        @Html.TextBoxFor(model => model.Stud_Mname, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="homeAddress" class="form-label">Home Address</label>
-                    <input type="text" class="form-control" id="homeAddress" name="homeAddress" placeholder="Enter Home Address">
+                    @Html.TextBoxFor(model => model.Stud_Address, new { @class = "form-control", @readonly = "readonly" })
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="contactNumber" class="form-label">Contact Number</label>
-                        <input type="tel" class="form-control" id="contactNumber" name="contactNumber" placeholder="e.g., 09123456789">
+                        @Html.TextBoxFor(model => model.Stud_Contact, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address">
+                        @Html.TextBoxFor(model => model.Stud_Email, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
 

@@ -213,6 +213,12 @@ namespace Fresh_University_Enrollment
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            
+            routes.MapRoute(
+                name: "StudentEnrollment",
+                url: "Main/Student_Enrollment",
+                defaults: new { controller = "StudentEnrollment", action = "Enrollment" }
+            );
         }
     }
 }
