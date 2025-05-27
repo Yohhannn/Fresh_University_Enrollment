@@ -230,6 +230,25 @@ namespace Fresh_University_Enrollment
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            
+            routes.MapRoute(
+                name: "GetAllCourses",
+                url: "Course/GetAllCourses",
+                defaults: new { controller = "Course", action = "GetAllCourses" }
+            );
+
+            routes.MapRoute(
+                name: "GetAssignedCourses",
+                url: "CurriculumCourse/GetAssignedCourses",
+                defaults: new { controller = "CurriculumCourse", action = "GetAssignedCourses" }
+            );
+
+            routes.MapRoute(
+                name: "AssignCourses",
+                url: "CurriculumCourse/AssignCourses",
+                defaults: new { controller = "CurriculumCourse", action = "AssignCourses" }
+            );
+
         }
     }
 }

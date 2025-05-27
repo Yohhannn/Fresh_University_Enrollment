@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ProgramHeadController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\StudentEnrollment.cs" />
     <Compile Include="Global.asax.cs">

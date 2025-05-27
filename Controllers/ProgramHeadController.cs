@@ -22,7 +22,7 @@ namespace Fresh_University_Enrollment.Controllers
 
         public ActionResult Schedule()
         {
-            return View("~/Views/Program-Head/SetSchedules.cshtml");
+            return RedirectToAction("Index", "Schedule");
         }
 
         public ActionResult StudentManagement()
