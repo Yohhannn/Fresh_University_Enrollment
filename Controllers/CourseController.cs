@@ -19,8 +19,9 @@ namespace Fresh_University_Enrollment.Controllers
         public ActionResult Course()
         {
             var courses = GetCoursesFromDatabase(); 
-            return View("~/Views/Admin/Courses.cshtml",courses);
+            return View("~/Views/Admin/Courses.cshtml", courses);
         }
+
         // GET: /Course/Create
         public ActionResult Create()
         {
@@ -48,16 +49,16 @@ namespace Fresh_University_Enrollment.Controllers
                     db.Open();
                     using (var cmd = new NpgsqlCommand(@"
                         SELECT 
-                            c.CRS_CODE, 
-                            c.CRS_TITLE, 
-                            COALESCE(cat.CTG_NAME, 'General') AS Category,
-                            COALESCE(p.PREQ_CRS_CODE, 'None') AS Prerequisite,
-                            c.CRS_UNITS, 
-                            c.CRS_LEC, 
-                            c.CRS_LAB
-                        FROM COURSE c
-                        LEFT JOIN COURSE_CATEGORY cat ON c.CTG_CODE = cat.CTG_CODE
-                        LEFT JOIN PREREQUISITE p ON p.CRS_CODE = c.CRS_CODE
+                            c.crs_code, 
+                            c.crs_title, 
+                            COALESCE(cat.ctg_name, 'General') AS category,
+                            COALESCE(p.preq_crs_code, 'None') AS prerequisite,
+                            c.crs_units, 
+                            c.crs_lec, 
+                            c.crs_lab
+                        FROM course c
+                        LEFT JOIN course_category cat ON c.ctg_code = cat.ctg_code
+                        LEFT JOIN prerequisite p ON p.crs_code = c.crs_code
                     ", db))
                     {
                         using (var reader = cmd.ExecuteReader())
@@ -66,13 +67,13 @@ namespace Fresh_University_Enrollment.Controllers
                             {
                                 courses.Add(new
                                 {
-                                    code = reader["CRS_CODE"].ToString(),
-                                    title = reader["CRS_TITLE"].ToString(),
-                                    category = reader["Category"].ToString(),
-                                    prerequisite = reader["Prerequisite"].ToString(),
-                                    units = reader["CRS_UNITS"] != DBNull.Value ? Convert.ToDecimal(reader["CRS_UNITS"]) : 0,
-                                    lec = reader["CRS_LEC"] != DBNull.Value ? Convert.ToInt32(reader["CRS_LEC"]) : 0,
-                                    lab = reader["CRS_LAB"] != DBNull.Value ? Convert.ToInt32(reader["CRS_LAB"]) : 0
+                                    code = reader["crs_code"].ToString(),
+                                    title = reader["crs_title"].ToString(),
+                                    category = reader["category"].ToString(),
+                                    prerequisite = reader["prerequisite"].ToString(),
+                                    units = reader["crs_units"] != DBNull.Value ? Convert.ToDecimal(reader["crs_units"]) : 0,
+                                    lec = reader["crs_lec"] != DBNull.Value ? Convert.ToInt32(reader["crs_lec"]) : 0,
+                                    lab = reader["crs_lab"] != DBNull.Value ? Convert.ToInt32(reader["crs_lab"]) : 0
                                 });
                             }
                         }
@@ -88,7 +89,6 @@ namespace Fresh_University_Enrollment.Controllers
             return Json(courses, JsonRequestBehavior.AllowGet);
         }
 
-
         private List<Course> GetCoursesFromDatabase()
         {
             var courses = new List<Course>();
@@ -97,17 +97,17 @@ namespace Fresh_University_Enrollment.Controllers
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand(@"
-            SELECT 
-                c.CRS_CODE, 
-                c.CRS_TITLE, 
-                COALESCE(cat.CTG_NAME, 'General') AS Category,
-                p.PREQ_CRS_CODE,
-                c.CRS_UNITS, 
-                c.CRS_LEC, 
-                c.CRS_LAB
-            FROM COURSE c
-            LEFT JOIN COURSE_CATEGORY cat ON c.CTG_CODE = cat.CTG_CODE
-            LEFT JOIN PREREQUISITE p ON p.CRS_CODE = c.CRS_CODE", conn))
+                    SELECT 
+                        c.crs_code, 
+                        c.crs_title, 
+                        COALESCE(cat.ctg_name, 'General') AS category,
+                        p.preq_crs_code,
+                        c.crs_units, 
+                        c.crs_lec, 
+                        c.crs_lab
+                    FROM course c
+                    LEFT JOIN course_category cat ON c.ctg_code = cat.ctg_code
+                    LEFT JOIN prerequisite p ON p.crs_code = c.crs_code", conn))
                 {
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -115,13 +115,13 @@ namespace Fresh_University_Enrollment.Controllers
                         {
                             courses.Add(new Course
                             {
-                                Crs_Code = reader["CRS_CODE"]?.ToString(),
-                                Crs_Title = reader["CRS_TITLE"]?.ToString(),
-                                Ctg_Name = reader["Category"]?.ToString(),
-                                Preq_Crs_Code = reader["PREQ_CRS_CODE"]?.ToString(),
-                                Crs_Units = reader["CRS_UNITS"] != DBNull.Value ? Convert.ToDecimal(reader["CRS_UNITS"]) : 0,
-                                Crs_Lec = reader["CRS_LEC"] != DBNull.Value ? Convert.ToInt32(reader["CRS_LEC"]) : 0,
-                                Crs_Lab = reader["CRS_LAB"] != DBNull.Value ? Convert.ToInt32(reader["CRS_LAB"]) : 0
+                                Crs_Code = reader["crs_code"]?.ToString(),
+                                Crs_Title = reader["crs_title"]?.ToString(),
+                                Ctg_Name = reader["category"]?.ToString(),
+                                Preq_Crs_Code = reader["preq_crs_code"]?.ToString(),
+                                Crs_Units = reader["crs_units"] != DBNull.Value ? Convert.ToDecimal(reader["crs_units"]) : 0,
+                                Crs_Lec = reader["crs_lec"] != DBNull.Value ? Convert.ToInt32(reader["crs_lec"]) : 0,
+                                Crs_Lab = reader["crs_lab"] != DBNull.Value ? Convert.ToInt32(reader["crs_lab"]) : 0
                             });
                         }
                     }
@@ -136,6 +136,67 @@ namespace Fresh_University_Enrollment.Controllers
             // Implement logic to fetch single course by ID
             // For now, just returning null
             return null;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCourse(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["ErrorMessage"] = "Invalid course ID.";
+                return RedirectToAction("Course");
+            }
+
+            try
+            {
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            using (var cmdCurriculum = new NpgsqlCommand(
+                                "DELETE FROM \"curriculum_course\" WHERE \"crs_code\" = @id", conn, transaction))
+                            {
+                                cmdCurriculum.Parameters.AddWithValue("id", id);
+                                cmdCurriculum.ExecuteNonQuery();
+                            }
+                            
+                            using (var cmdCourse = new NpgsqlCommand(
+                                "DELETE FROM \"course\" WHERE \"crs_code\" = @id", conn, transaction))
+                            {
+                                cmdCourse.Parameters.AddWithValue("id", id);
+                                int rowsAffected = cmdCourse.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    transaction.Commit();
+                                    TempData["SuccessMessage"] = $"Course '{id}' deleted successfully.";
+                                }
+                                else
+                                {
+                                    transaction.Rollback();
+                                    TempData["ErrorMessage"] = $"Course '{id}' not found.";
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw; // Re-throw so outer block can log it
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error deleting course: {ex.Message}");
+                TempData["ErrorMessage"] = "An error occurred while deleting the course.";
+            }
+
+            return RedirectToAction("Course");
         }
     }
 }
