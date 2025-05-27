@@ -7,9 +7,76 @@ using Npgsql;
 
 namespace Fresh_University_Enrollment.Controllers
 {
+    
+    
     public class StudentEnrollmentController : Controller
     {
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["Enrollment"].ConnectionString;
+
+[HttpGet]
+public JsonResult GetAvailableSubjects()
+{
+    try
+    {
+        var subjects = new List<SubjectViewModel>();
+
+        using (var conn = new NpgsqlConnection(_connectionString))
+        {
+            conn.Open();
+
+            string query = @"
+                SELECT 
+                    s.crs_code,
+                    c.crs_title,
+                    se.tsl_start_time,
+                    se.tsl_end_time,
+                    se.tsl_day,
+                    c.crs_units
+                FROM schedule s
+                JOIN course c ON s.crs_code = c.crs_code
+                JOIN session se ON s.schd_id = se.schd_id";
+
+            using (var cmd = new NpgsqlCommand(query, conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var dayNum = Convert.ToInt32(reader["tsl_day"]);
+                    var dayStr = dayNum switch
+                    {
+                        1 => "M",
+                        2 => "T",
+                        3 => "W",
+                        4 => "Th",
+                        5 => "F",
+                        _ => "N/A"
+                    };
+
+                    var startTime = reader["tsl_start_time"] == DBNull.Value ? "" : reader["tsl_start_time"].ToString();
+                    var endTime = reader["tsl_end_time"] == DBNull.Value ? "" : reader["tsl_end_time"].ToString();
+
+                    subjects.Add(new SubjectViewModel
+                    {
+                        CourseCode = reader["crs_code"]?.ToString(),
+                        Title = reader["crs_title"]?.ToString(),
+                        Time = $"{startTime} - {endTime}",
+                        Days = dayStr,
+                        Room = "N/A",
+                        Units = Convert.ToInt32(reader["crs_units"])
+                    });
+                }
+            }
+        }
+
+        return Json(subjects, JsonRequestBehavior.AllowGet);
+    }
+    catch (Exception ex)
+    {
+        return Json(new { error = ex.Message, stackTrace = ex.StackTrace }, JsonRequestBehavior.AllowGet);
+    }
+}
+
+
 
         public ActionResult Student_Enrollment()
         {
