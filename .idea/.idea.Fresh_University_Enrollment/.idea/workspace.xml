@@ -7,10 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="">
+    <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="- Jayson's Delete Course function">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/CourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CourseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Admin/Courses.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Admin/Courses.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Main/StudentEnroll.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Main/StudentEnroll.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +79,13 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/CourseController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/StudentEnrollment.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/StudentEnrollment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Admin/Courses.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Main/StudentEnroll.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Main/StudentEnroll.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Web.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Web.config" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -90,20 +96,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.Fresh_University_Enrollment - IIS Express.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Fresh_University_Enrollment - IIS Express.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev-null-2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Fresh_University_Enrollment - IIS Express" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -142,7 +148,7 @@
       <workItem from="1748352427065" duration="9724000" />
       <workItem from="1748363487810" duration="160000" />
       <workItem from="1748363658111" duration="4464000" />
-      <workItem from="1748371094016" duration="895000" />
+      <workItem from="1748371094016" duration="7337000" />
     </task>
     <task id="LOCAL-00001" summary="add curriculum good">
       <option name="closed" value="true" />
@@ -176,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748360849623</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="- Jayson's Delete Course function">
+      <option name="closed" value="true" />
+      <created>1748372048905</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748372048905</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +204,7 @@
     <MESSAGE value="- Added auto fill out enrollment form" />
     <MESSAGE value="- You should now be able create course without picking any prerequisites" />
     <MESSAGE value="partial" />
-    <option name="LAST_COMMIT_MESSAGE" value="partial" />
+    <MESSAGE value="- Jayson's Delete Course function" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Jayson's Delete Course function" />
   </component>
 </project>
