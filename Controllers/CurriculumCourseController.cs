@@ -107,7 +107,7 @@ public JsonResult AssignCourses(List<CurriculumCourse> courses)
             {
                 conn.Open();
                 string sql = @"
-            SELECT c.crs_code, cr.crs_title
+            SELECT c.crs_code, cr.crs_title, cr.ctg_code, cr.crs_units, cr.crs_lec, cr.crs_lab
             FROM curriculum_course c
             INNER JOIN course cr ON c.crs_code = cr.crs_code
             WHERE c.prog_code = @progCode AND c.cur_year_level = @yearLevel AND c.cur_semester = @semester AND c.ay_code = @ayCode";
@@ -126,7 +126,11 @@ public JsonResult AssignCourses(List<CurriculumCourse> courses)
                             courses.Add(new
                             {
                                 code = reader.GetString(0),
-                                title = reader.GetString(1)
+                                title = reader.GetString(1),
+                                category = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                                units = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
+                                lec = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                                lab = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5)
                             });
                         }
                     }
@@ -135,6 +139,7 @@ public JsonResult AssignCourses(List<CurriculumCourse> courses)
 
             return Json(courses, JsonRequestBehavior.AllowGet);
         }
+
 
 
         [HttpGet]
