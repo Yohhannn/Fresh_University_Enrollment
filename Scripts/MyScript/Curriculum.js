@@ -102,10 +102,7 @@ $(document).ready(function () {
         $availableCoursesList.empty().append('<tr><td colspan="8" class="text-center">Loading courses...</td></tr>');
 
         return $.when(
-            $.get('/Course/GetAllCourses', {
-                progCode: selectedProg,
-                ayCode: selectedAY
-            }),
+            $.get('/Course/GetAllCourses'),
             $.get('/CurriculumCourse/GetAssignedCourses', {
                 progCode: selectedProg,
                 yearLevel: selectedYear,
@@ -113,27 +110,13 @@ $(document).ready(function () {
                 ayCode: selectedAY
             })
         ).done(function (allCoursesRes, assignedCoursesRes) {
-            let allCourses = allCoursesRes[0];      // courses not assigned anywhere in this AY
-            let assignedCourses = assignedCoursesRes[0];  // courses assigned in current prog + year + sem + AY
-
-            // Convert codes to strings for consistent comparison
-            const assignedCodesSet = new Set(assignedCourses.map(c => String(c.code)));
-
-            // Add assigned courses for current year/sem to allCourses if missing
-            assignedCourses.forEach(ac => {
-                if (!allCourses.find(c => String(c.code) === String(ac.code))) {
-                    allCourses.push(ac); // add missing assigned courses for current year/sem
-                }
-            });
-
-            allAvailableCourses = allCourses;  // update global variable
-
-            // Update selectedCoursesToAssign set with assigned courses for current year/semester
-            selectedCoursesToAssign = new Set(assignedCodesSet);
+            allAvailableCourses = allCoursesRes[0]; // unwrap jQuery response array
+            const assignedCodes = new Set(assignedCoursesRes[0].map(c => c.code));
+            selectedCoursesToAssign = new Set(assignedCodes); // Pre-check assigned courses
 
             // Render with selected courses on top
             renderFilteredCourses();
-    }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             console.error('❌ Failed to fetch courses: ', textStatus, errorThrown);
             console.log('🔍 Full response:', jqXHR.responseText);
             $availableCoursesList.empty().append(
@@ -141,7 +124,6 @@ $(document).ready(function () {
             );
         });
     }
-
 
     // Renders filtered & sorted courses based on current search and selected courses
     function renderFilteredCourses() {
@@ -153,8 +135,8 @@ $(document).ready(function () {
         );
 
         // Sort: selected courses first, then unselected
-        const selectedCourses = filtered.filter(c => selectedCoursesToAssign.has(String(c.code)));
-        const unselectedCourses = filtered.filter(c => !selectedCoursesToAssign.has(String(c.code)));
+        const selectedCourses = filtered.filter(c => selectedCoursesToAssign.has(c.code));
+        const unselectedCourses = filtered.filter(c => !selectedCoursesToAssign.has(c.code));
 
         renderAvailableCourses(selectedCourses, unselectedCourses);
     }
@@ -185,8 +167,7 @@ $(document).ready(function () {
 
     // Track selected courses and re-render on checkbox change
     $availableCoursesList.on('change', '.course-checkbox', function () {
-        // Force courseCode as string here
-        const courseCode = String($(this).data('code'));
+        const courseCode = $(this).data('code');
         if ($(this).is(':checked')) {
             selectedCoursesToAssign.add(courseCode);
         } else {
@@ -200,7 +181,7 @@ $(document).ready(function () {
     $confirmAssign.on('click', function () {
         selectedCoursesToAssign.clear();
         $availableCoursesList.find('input.course-checkbox:checked').each(function () {
-            selectedCoursesToAssign.add(String($(this).data('code')));
+            selectedCoursesToAssign.add($(this).data('code'));
         });
 
         if (selectedCoursesToAssign.size === 0) {

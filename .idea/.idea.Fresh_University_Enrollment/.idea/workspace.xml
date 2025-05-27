@@ -11,8 +11,11 @@
       <change afterPath="$PROJECT_DIR$/Models/SubjectView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/CourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CourseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Main/StudentEnroll.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Main/StudentEnroll.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/_MainHeader.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_MainHeader.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +47,7 @@
   }
 }&lt;/component&gt;
   &lt;component name=&quot;HighlightingSettingsPerFile&quot;&gt;
-    &lt;setting file=&quot;jar://C:/Program Files/JetBrains/JetBrains Rider 2025.1.2/lib/app.jar!/resources/html5-schema/html5/web-forms.rnc&quot; root0=&quot;FORCE_HIGHLIGHTING&quot; /&gt;
+    &lt;setting file=&quot;jar://C:/Program Files/JetBrains/JetBrains Rider 2024.3.5/lib/app.jar!/resources/html5-schema/html5/web-forms.rnc&quot; root0=&quot;FORCE_HIGHLIGHTING&quot; /&gt;
     &lt;setting file=&quot;mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/AddProgramController.cs&quot; root0=&quot;SKIP_HIGHLIGHTING&quot; /&gt;
     &lt;setting file=&quot;mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/AddProgramController.cs&quot; root0=&quot;SKIP_HIGHLIGHTING&quot; /&gt;
     &lt;setting file=&quot;mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/StudentEnrollment.cs&quot; root0=&quot;SKIP_HIGHLIGHTING&quot; /&gt;
@@ -79,11 +82,29 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xgd7xkZtowOFbFPzrItMLkrzDI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Fresh_University_Enrollment - IIS Express.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="Fresh_University_Enrollment - IIS Express" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -118,6 +139,10 @@
       <workItem from="1748268423395" duration="12157000" />
       <workItem from="1748283790276" duration="1594000" />
       <workItem from="1748330577781" duration="7360000" />
+      <workItem from="1748350697044" duration="1718000" />
+      <workItem from="1748352427065" duration="9724000" />
+      <workItem from="1748363487810" duration="160000" />
+      <workItem from="1748363658111" duration="4464000" />
     </task>
     <task id="LOCAL-00001" summary="add curriculum good">
       <option name="closed" value="true" />
@@ -135,7 +160,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748341368177</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="- You should now be able create course without picking any prerequisites">
+      <option name="closed" value="true" />
+      <created>1748360425282</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748360425282</updated>
+    </task>
+    <task id="LOCAL-00004" summary="partial">
+      <option name="closed" value="true" />
+      <created>1748360849623</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748360849623</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +188,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="add curriculum good" />
     <MESSAGE value="- Added auto fill out enrollment form" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added auto fill out enrollment form" />
+    <MESSAGE value="- You should now be able create course without picking any prerequisites" />
+    <MESSAGE value="partial" />
+    <option name="LAST_COMMIT_MESSAGE" value="partial" />
   </component>
 </project>

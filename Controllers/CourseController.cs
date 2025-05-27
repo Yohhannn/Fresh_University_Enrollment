@@ -37,9 +37,8 @@ namespace Fresh_University_Enrollment.Controllers
         }
 
         // GET: /Course/GetAllCourses
-        // GET: /Course/GetAllCourses?progCode=XXX&ayCode=YYY
         [HttpGet]
-        public JsonResult GetAllCourses(string progCode = null, string ayCode = null)
+        public JsonResult GetAllCourses()
         {
             var courses = new List<dynamic>();
             try
@@ -47,8 +46,7 @@ namespace Fresh_University_Enrollment.Controllers
                 using (var db = new NpgsqlConnection(_connectionString))
                 {
                     db.Open();
-
-                    string sql = @"
+                    using (var cmd = new NpgsqlCommand(@"
                         SELECT 
                             c.CRS_CODE, 
                             c.CRS_TITLE, 
@@ -60,28 +58,8 @@ namespace Fresh_University_Enrollment.Controllers
                         FROM COURSE c
                         LEFT JOIN COURSE_CATEGORY cat ON c.CTG_CODE = cat.CTG_CODE
                         LEFT JOIN PREREQUISITE p ON p.CRS_CODE = c.CRS_CODE
-                        WHERE 1=1
-                    ";
-
-                    // Exclude courses already assigned if progCode and ayCode are provided
-                    if (!string.IsNullOrEmpty(progCode) && !string.IsNullOrEmpty(ayCode))
+                    ", db))
                     {
-                        sql += @"
-                            AND c.CRS_CODE NOT IN (
-                                SELECT crs_code FROM curriculum_course
-                                WHERE prog_code = @progCode AND ay_code = @ayCode
-                            )
-                        ";
-                    }
-
-                    using (var cmd = new NpgsqlCommand(sql, db))
-                    {
-                        if (!string.IsNullOrEmpty(progCode) && !string.IsNullOrEmpty(ayCode))
-                        {
-                            cmd.Parameters.AddWithValue("@progCode", progCode);
-                            cmd.Parameters.AddWithValue("@ayCode", ayCode);
-                        }
-
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -109,7 +87,6 @@ namespace Fresh_University_Enrollment.Controllers
 
             return Json(courses, JsonRequestBehavior.AllowGet);
         }
-
 
 
         private List<Course> GetCoursesFromDatabase()
