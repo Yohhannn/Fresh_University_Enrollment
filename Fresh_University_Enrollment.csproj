@@ -200,7 +200,9 @@
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\Prerequisite.cs" />
     <Compile Include="Models\Program.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\SubjectView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -249,9 +251,12 @@
     <Content Include="Scripts\JQuery\jquery.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyScript\AddProgram.js" />
+    <Content Include="Scripts\MyScript\AddSchedule.js" />
+    <Content Include="Scripts\MyScript\AddSession.js" />
     <Content Include="Scripts\MyScript\Curriculum.js" />
     <Content Include="Scripts\MyScript\LogIn.js" />
     <Content Include="Scripts\MyScript\LogInFaculty.js" />
+    <Content Include="Scripts\MyScript\SessionsModal.js" />
     <Content Include="Scripts\MyScript\SignUp.js" />
     <Content Include="Scripts\MyScript\StudentEnroll.js" />
     <Content Include="Views\Admin\AddProgram.cshtml" />
