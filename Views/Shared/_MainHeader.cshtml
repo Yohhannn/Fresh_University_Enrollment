@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "StudentEnroll" ? "active" : "")"
-                       href="@Url.Action("Student_Enrollment", "Main")">ENROLL</a>
+                       href="@Url.Action("Student_Enrollment", "StudentEnrollment")">ENROLL</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ClassSchedule" ? "active" : "")"

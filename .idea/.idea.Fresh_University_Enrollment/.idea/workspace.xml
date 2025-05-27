@@ -7,7 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="- Added auto fill out enrollment form">
+    <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Models/SubjectView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/CourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CourseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" afterDir="false" />
@@ -77,6 +79,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -88,13 +91,8 @@
       <option name="WORKING_DIRECTORY" value="" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="ENV_FILE_PATHS" value="" />
-      <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="PTY_MODE" value="Auto" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="AUTO_ATTACH_CHILDREN" value="0" />
-      <option name="MIXED_MODE_DEBUG" value="0" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />

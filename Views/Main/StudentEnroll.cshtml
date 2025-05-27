@@ -1,6 +1,6 @@
 @model Fresh_University_Enrollment.Models.Student
 @{
-    Layout = null; 
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -25,23 +25,22 @@
             padding: 30px;
             flex-grow: 1;
         }
-        /* Styles for the dynamically displayed subject table */
         #subjectSelectionArea {
-            display: none; /* Hidden by default */
+            display: none;
         }
         .info-display-box {
-            background-color: #e9ecef; /* Light grey background */
+            background-color: #e9ecef;
             padding: 15px;
             border-radius: .3rem;
             margin-bottom: 20px;
             font-size: 1.1rem;
             font-weight: 500;
-            color: #343a40; /* Darker text */
+            color: #343a40;
         }
     </style>
 </head>
 <body>
-@Html.Partial("_MainHeader") <!-- Replace with your actual header partial view -->
+@Html.Partial("_MainHeader")
 
 <div class="container content-section">
     <h1 class="mb-4">Student Enrollment</h1>
@@ -54,19 +53,19 @@
             {
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="studentId" class="form-label">Student ID</label>
+                        <label class="form-label">Student ID</label>
                         @Html.TextBoxFor(model => model.Stud_Code, new { @class = "form-control", @readonly = "readonly" })
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-3">
-                        <label for="schoolYear" class="form-label">School Year</label>
-                        <input type="text" class="form-control" id="schoolYear" name="schoolYear" placeholder="e.g., 2024-2025">
+                        <label class="form-label">School Year</label>
+                        <input type="text" class="form-control" name="schoolYear" placeholder="e.g., 2024-2025">
                     </div>
                     <div class="col-md-3">
-                        <label for="enrollmentSemester" class="form-label">Semester</label>
-                        <select class="form-select" id="enrollmentSemester" name="enrollmentSemester">
+                        <label class="form-label">Semester</label>
+                        <select class="form-select" name="enrollmentSemester">
                             <option selected disabled>Choose...</option>
                             <option value="1st Semester">1st Semester</option>
                             <option value="2nd Semester">2nd Semester</option>
@@ -74,16 +73,16 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="studentStatus" class="form-label">Student Status</label>
-                        <select class="form-select" id="studentStatus" name="studentStatus">
+                        <label class="form-label">Student Status</label>
+                        <select class="form-select" name="studentStatus">
                             <option selected disabled>Choose...</option>
                             <option value="Regular">Regular</option>
                             <option value="Irregular">Irregular</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="enrollmentStatus" class="form-label">Enrollment Status</label>
-                        <select class="form-select" id="enrollmentStatus" name="enrollmentStatus">
+                        <label class="form-label">Enrollment Status</label>
+                        <select class="form-select" name="enrollmentStatus">
                             <option selected disabled>Choose...</option>
                             <option value="New">New</option>
                             <option value="Old">Old</option>
@@ -95,33 +94,39 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        @Html.TextBoxFor(model => model.Stud_Lname, new { @class = "form-control", @readonly = "readonly" })                    </div>
+                        <label class="form-label">Last Name</label>
+                        @Html.TextBoxFor(model => model.Stud_Lname, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                     <div class="col-md-4">
-                        <label for="firstName" class="form-label">First Name</label>
-                        @Html.TextBoxFor(model => model.Stud_Fname, new { @class = "form-control", @readonly = "readonly" })                    </div>
+                        <label class="form-label">First Name</label>
+                        @Html.TextBoxFor(model => model.Stud_Fname, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                     <div class="col-md-4">
-                        <label for="middleName" class="form-label">Middle Name</label>
-                        @Html.TextBoxFor(model => model.Stud_Mname, new { @class = "form-control", @readonly = "readonly" })                    </div>
+                        <label class="form-label">Middle Name</label>
+                        @Html.TextBoxFor(model => model.Stud_Mname, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="homeAddress" class="form-label">Home Address</label>
-                    @Html.TextBoxFor(model => model.Stud_Address, new { @class = "form-control", @readonly = "readonly" })                </div>
+                    <label class="form-label">Home Address</label>
+                    @Html.TextBoxFor(model => model.Stud_Address, new { @class = "form-control", @readonly = "readonly" })
+                </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="contactNumber" class="form-label">Contact Number</label>
-                        @Html.TextBoxFor(model => model.Stud_Contact, new { @class = "form-control", @readonly = "readonly" })                    </div>
+                        <label class="form-label">Contact Number</label>
+                        @Html.TextBoxFor(model => model.Stud_Contact, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        @Html.TextBoxFor(model => model.Stud_Email, new { @class = "form-control", @readonly = "readonly" })                    </div>
+                        <label class="form-label">Email</label>
+                        @Html.TextBoxFor(model => model.Stud_Email, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
                 </div>
 
                 <div class="row mb-4">
                     <div class="col-md-3">
-                        <label for="yearLevel" class="form-label">Year Level</label>
-                        <select class="form-select" id="yearLevel" name="yearLevel">
+                        <label class="form-label">Year Level</label>
+                        <select class="form-select" name="yearLevel">
                             <option selected disabled>Choose...</option>
                             <option value="1st Year">1st Year</option>
                             <option value="2nd Year">2nd Year</option>
@@ -130,12 +135,12 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="major" class="form-label">Major</label>
-                        <input type="text" class="form-control" id="major" name="major" placeholder="e.g., Software Dev">
+                        <label class="form-label">Major</label>
+                        <input type="text" class="form-control" name="major" placeholder="e.g., Software Dev">
                     </div>
                     <div class="col-md-3">
-                        <label for="program" class="form-label">Program</label>
-                        <select class="form-select" id="program" name="program">
+                        <label class="form-label">Program</label>
+                        <select class="form-select" name="program">
                             <option value="" selected disabled>Choose Program...</option>
                             @{
                                 var programs = ViewBag.Programs as List<Fresh_University_Enrollment.Models.Program>;
@@ -154,8 +159,8 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="blockSection" class="form-label">Block Section</label>
-                        <input type="text" class="form-control" id="blockSection" name="blockSection" placeholder="e.g., IT-A">
+                        <label class="form-label">Block Section</label>
+                        <input type="text" class="form-control" name="blockSection" placeholder="e.g., IT-A">
                     </div>
                 </div>
 
@@ -171,7 +176,6 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>MIS CODE</th>
                                 <th>COURSE CODE</th>
                                 <th>DESCRIPTIVE TITLE</th>
                                 <th>Time</th>
@@ -183,44 +187,6 @@
                             </thead>
                             <tbody id="availableSubjectsTableBody">
                             <tr>
-                                <td>MIS-GE101</td>
-                                <td>GE 101</td>
-                                <td>Understanding the Self</td>
-                                <td>8:00 AM - 9:00 AM</td>
-                                <td>M, W</td>
-                                <td>RM 201</td>
-                                <td class="units-cell">3</td>
-                                <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
-                            </tr>
-                            <tr>
-                                <td>MIS-IT203</td>
-                                <td>IT 203</td>
-                                <td>Database Management</td>
-                                <td>10:00 AM - 11:30 AM</td>
-                                <td>T, Th</td>
-                                <td>RM 305</td>
-                                <td class="units-cell">3</td>
-                                <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
-                            </tr>
-                            <tr>
-                                <td>MIS-IT203L</td>
-                                <td>IT 203L</td>
-                                <td>Database Management (Lab)</td>
-                                <td>1:00 PM - 3:00 PM</td>
-                                <td>F</td>
-                                <td>LAB 101</td>
-                                <td class="units-cell">1</td>
-                                <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
-                            </tr>
-                            <tr>
-                                <td>MIS-PE102</td>
-                                <td>PE 102</td>
-                                <td>Physical Education 2</td>
-                                <td>3:00 PM - 4:00 PM</td>
-                                <td>M</td>
-                                <td>GYM</td>
-                                <td class="units-cell">2</td>
-                                <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -231,7 +197,6 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>MIS CODE</th>
                                 <th>COURSE CODE</th>
                                 <th>DESCRIPTIVE TITLE</th>
                                 <th>Time</th>
@@ -256,100 +221,85 @@
 
 <script src="@Url.Content("~/Scripts/bootstrap.bundle.min.js")"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Enrollment Page Specific Logic ---
+    document.addEventListener('DOMContentLoaded', function () {
         const selectSubjectsBtn = document.getElementById('selectSubjectsBtn');
         const subjectSelectionArea = document.getElementById('subjectSelectionArea');
         const availableSubjectsTableBody = document.getElementById('availableSubjectsTableBody');
         const selectedSubjectsTableBody = document.getElementById('selectedSubjectsTableBody');
         const totalUnitsDisplay = document.getElementById('totalUnitsDisplay');
 
-        // Function to calculate and update total units
-        function updateSelectedUnits() {
-            let totalUnits = 0;
-            const rows = selectedSubjectsTableBody.querySelectorAll('tr');
-            rows.forEach(row => {
-                // Units column is at index 6 (0-indexed) in the new table structure
-                const unitsCell = row.children[6];
-                if (unitsCell) {
-                    const units = parseInt(unitsCell.textContent.trim());
-                    if (!isNaN(units)) {
-                        totalUnits += units;
-                    }
-                }
-            });
-            totalUnitsDisplay.textContent = totalUnits;
+        selectSubjectsBtn.addEventListener('click', function () {
+            subjectSelectionArea.style.display = 'block';
+            loadAvailableSubjects();
+        });
+
+        // Load subjects from API and populate table
+        function loadAvailableSubjects() {
+            fetch('@Url.Action("GetAvailableSubjects", "StudentEnrollment")') // Replace with your actual controller name
+                .then(response => response.json())
+                .then(subjects => {
+                    availableSubjectsTableBody.innerHTML = ''; // clear existing rows
+
+                    subjects.forEach(sub => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                        <td>${sub.CourseCode}</td>
+                        <td>${sub.Title}</td>
+                        <td>${sub.Time}</td>
+                        <td>${sub.Days}</td>
+                        <td>${sub.Room}</td>
+                        <td class="units-cell">${sub.Units}</td>
+                        <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
+                    `;
+
+                        availableSubjectsTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching subjects:', error);
+                });
         }
 
-        // Show subject selection area when "SELECT SUBJECTS" is clicked
-        selectSubjectsBtn.addEventListener('click', function() {
-            subjectSelectionArea.style.display = 'block';
-            // Initially calculate units for any pre-filled subjects (if any)
-            updateSelectedUnits();
-        });
+        availableSubjectsTableBody.addEventListener('click', function (e) {
+            if (e.target.classList.contains('add-subject-btn')) {
+                const row = e.target.closest('tr');
+                // Prevent adding duplicate subjects:
+                const courseCode = row.children[0].textContent;
+                const alreadySelected = Array.from(selectedSubjectsTableBody.children)
+                    .some(r => r.children[0].textContent === courseCode);
 
-        // Handle adding subjects
-        availableSubjectsTableBody.addEventListener('click', function(event) {
-            if (event.target.classList.contains('add-subject-btn')) {
-                const row = event.target.closest('tr');
-                const newRow = row.cloneNode(true); // Clone the row
+                if (alreadySelected) {
+                    alert('Subject already selected.');
+                    return;
+                }
 
-                // Change 'Add' button to 'Remove' button
-                const actionCell = newRow.querySelector('.add-subject-btn').closest('td');
-                actionCell.innerHTML = '<button type="button" class="btn btn-danger btn-sm remove-subject-btn">Remove</button>';
-
-                selectedSubjectsTableBody.appendChild(newRow); // Add to selected table
-                row.remove(); // Remove from available table
-
-                updateSelectedUnits(); // Recalculate total units
+                const clone = row.cloneNode(true);
+                const addBtn = clone.querySelector('.add-subject-btn');
+                addBtn.classList.remove('btn-success', 'add-subject-btn');
+                addBtn.classList.add('btn-danger', 'remove-subject-btn');
+                addBtn.textContent = 'Remove';
+                selectedSubjectsTableBody.appendChild(clone);
+                updateTotalUnits();
             }
         });
 
-        // Handle removing subjects
-        selectedSubjectsTableBody.addEventListener('click', function(event) {
-            if (event.target.classList.contains('remove-subject-btn')) {
-                const row = event.target.closest('tr');
-                const newRow = row.cloneNode(true); // Clone the row
-
-                // Change 'Remove' button back to 'Add' button
-                const actionCell = newRow.querySelector('.remove-subject-btn').closest('td');
-                actionCell.innerHTML = '<button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button>';
-
-                availableSubjectsTableBody.appendChild(newRow); // Add back to available table
-                row.remove(); // Remove from selected table
-
-                updateSelectedUnits(); // Recalculate total units
+        selectedSubjectsTableBody.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-subject-btn')) {
+                e.target.closest('tr').remove();
+                updateTotalUnits();
             }
         });
 
-        // Optional: Form submission handler (for preventing default behavior)
-        document.getElementById('enrollmentForm').addEventListener('submit', function(event) {
-            // Collect selected subjects data
-            const selectedSubjects = [];
-            const rows = selectedSubjectsTableBody.querySelectorAll('tr');
-            rows.forEach(row => {
-                const cells = row.cells;
-                selectedSubjects.push({
-                    misCode: cells[0].textContent.trim(),
-                    courseCode: cells[1].textContent.trim(),
-                    title: cells[2].textContent.trim(),
-                    time: cells[3].textContent.trim(),
-                    days: cells[4].textContent.trim(),
-                    room: cells[5].textContent.trim(),
-                    units: parseInt(cells[6].textContent.trim())
-                });
+        function updateTotalUnits() {
+            let total = 0;
+            document.querySelectorAll('#selectedSubjectsTableBody .units-cell').forEach(cell => {
+                total += parseInt(cell.textContent) || 0;
             });
-
-            // Create a hidden input to store the selected subjects
-            const subjectsInput = document.createElement('input');
-            subjectsInput.type = 'hidden';
-            subjectsInput.name = 'selectedSubjects';
-            subjectsInput.value = JSON.stringify(selectedSubjects);
-            this.appendChild(subjectsInput);
-
-            // Form will now submit with all data including selected subjects
-        });
+            totalUnitsDisplay.textContent = total;
+        }
     });
+
 </script>
 </body>
 </html>
