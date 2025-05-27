@@ -155,29 +155,35 @@ namespace Fresh_University_Enrollment.Controllers
         private void InsertMainCourse(NpgsqlConnection conn, Course course)
         {
             const string insertCourseSql = @"
-                INSERT INTO COURSE (
-                    CRS_CODE, 
-                    CRS_TITLE, 
-                    CTG_CODE, 
-                    PREQ_ID, 
-                    CRS_UNITS, 
-                    CRS_LEC, 
-                    CRS_LAB
-                ) VALUES (
-                    @code, 
-                    @title, 
-                    @ctgCode, 
-                    @prereq, 
-                    @units, 
-                    @lec, 
-                    @lab)";
+        INSERT INTO COURSE (
+            CRS_CODE, 
+            CRS_TITLE, 
+            CTG_CODE, 
+            PREQ_ID, 
+            CRS_UNITS, 
+            CRS_LEC, 
+            CRS_LAB
+        ) VALUES (
+            @code, 
+            @title, 
+            @ctgCode, 
+            @prereq, 
+            @units, 
+            @lec, 
+            @lab)";
 
             using (var cmd = new NpgsqlCommand(insertCourseSql, conn))
             {
                 cmd.Parameters.AddWithValue("code", course.Crs_Code);
                 cmd.Parameters.AddWithValue("title", course.Crs_Title);
                 cmd.Parameters.AddWithValue("ctgCode", course.Ctg_Code);
-                cmd.Parameters.AddWithValue("prereq", course.Preq_Crs_Code);
+
+                // Check if prerequisite is empty or null
+                if (string.IsNullOrEmpty(course.Preq_Crs_Code))
+                    cmd.Parameters.AddWithValue("prereq", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("prereq", course.Preq_Crs_Code);
+
                 cmd.Parameters.AddWithValue("units", course.Crs_Units);
                 cmd.Parameters.AddWithValue("lec", course.Crs_Lec);
                 cmd.Parameters.AddWithValue("lab", course.Crs_Lab);
@@ -185,6 +191,7 @@ namespace Fresh_University_Enrollment.Controllers
                 cmd.ExecuteNonQuery();
             }
         }
+
         
 
         public List<CourseCategory> GetCourseCategories()

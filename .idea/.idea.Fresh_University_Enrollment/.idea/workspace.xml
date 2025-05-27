@@ -8,6 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="- Added auto fill out enrollment form">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/AddProgramController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AddProgramController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/StudentEnrollment.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,21 +35,19 @@
     &quot;assignee&quot;: &quot;LemoonRay&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Yohhannn/Fresh_University_Enrollment.git",
-    "accountId": "61fdca46-29f3-4293-9bed-1de76fbf448f"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Yohhannn/Fresh_University_Enrollment.git&quot;,
+    &quot;accountId&quot;: &quot;61fdca46-29f3-4293-9bed-1de76fbf448f&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$APPLICATION_HOME_DIR$/lib/app.jar!/resources/html5-schema/html5/web-forms.rnc" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/.idea/config/applicationhost.config" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/.idea/config/applicationhost.config" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/App_Start/RouteConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/AdminController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Admin/Curriculum.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/AddProgramController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/AddProgramController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Controllers/StudentEnrollment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Main/StudentEnroll.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Web.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Views/Main/StudentEnroll.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/joeha/RiderProjects/Fresh_University_Enrollment/Web.config" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -64,12 +65,13 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev-null",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -107,6 +109,8 @@
       <workItem from="1748268423395" duration="12157000" />
       <workItem from="1748283790276" duration="1594000" />
       <workItem from="1748330577781" duration="7360000" />
+      <workItem from="1748350697044" duration="1718000" />
+      <workItem from="1748352427065" duration="7181000" />
     </task>
     <task id="LOCAL-00001" summary="add curriculum good">
       <option name="closed" value="true" />
