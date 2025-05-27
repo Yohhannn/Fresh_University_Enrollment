@@ -29,12 +29,10 @@ namespace Fresh_University_Enrollment.Controllers
                 var programs = GetProgramsFromDatabase();
                 var academicYears = GetAcademicYearsFromDatabase(); 
                 
-                
                 ViewBag.Programs = programs;
                 ViewBag.AcademicYears = academicYears;
                 
-                ViewBag.AcademicYears = academicYears;
-                return View("~/Views/Admin/Curriculum.cshtml", programs);
+                return View("~/Views/Admin/Curriculum.cshtml");
             }
             catch (Exception ex)
             {

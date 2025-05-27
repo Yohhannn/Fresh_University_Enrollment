@@ -10,94 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js "></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Hide scrollbar */
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        .content-section {
-            padding: 30px;
-            flex-grow: 1;
-        }
-
-        .schedule-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .filter-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .schedule-table th,
-        .schedule-table td {
-            border: 1px solid #dee2e6;
-            padding: 8px;
-            text-align: center;
-        }
-
-        .schedule-table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .time-column {
-            background-color: #f8f9fa;
-            font-weight: bold;
-        }
-
-        .schedule-slot {
-            min-height: 80px;
-            position: relative;
-        }
-
-        .schedule-card {
-            background-color: #e7f5ff;
-            border-left: 4px solid #228be6;
-            border-radius: 4px;
-            padding: 5px;
-            margin: 2px;
-            font-size: 0.9em;
-        }
-
-        .schedule-card .course-code {
-            font-weight: bold;
-        }
-
-        .schedule-card .instructor {
-            font-size: 0.8em;
-            color: #495057;
-        }
-
-        .add-schedule-btn {
-            margin-top: 20px;
-        }
-
-        .empty-slot {
-            color: #adb5bd;
-            font-style: italic;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; min-height: 100vh; display: flex; flex-direction: column; }
+        &::-webkit-scrollbar { display: none; }
+        .content-section { padding: 30px; flex-grow: 1; }
+        .schedule-container { background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); padding: 20px; margin-bottom: 30px; }
+        .filter-section { margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -105,298 +24,178 @@
 <div class="container content-section">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Schedule Management</h1>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignScheduleModal">
-            Assign Subject to Section
-        </button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addScheduleModal">Add Course Schedule</button>
     </div>
 
     <div class="schedule-container">
         <div class="filter-section">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="programFilter" class="form-label">Program</label>
-                    <select class="form-select" id="programFilter">
-                        <option value="">All Programs</option>
-                        <option value="BSIT">BSIT</option>
-                        <option value="BSCS">BSCS</option>
-                        <option value="BSIS">BSIS</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="yearLevelFilter" class="form-label">Year Level</label>
-                    <select class="form-select" id="yearLevelFilter">
-                        <option value="">All Year Levels</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="sectionFilter" class="form-label">Section</label>
-                    <select class="form-select" id="sectionFilter">
-                        <option value="">All Sections</option>
-                        <option value="A">Section A</option>
-                        <option value="B">Section B</option>
-                        <option value="C">Section C</option>
-                    </select>
-                </div>
-            </div>
+            <!-- filters here -->
         </div>
-
         <div class="table-responsive">
-            <table class="schedule-table">
-                <thead>
-                <tr>
-                    <th>Time</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                </tr>
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                <tr><th>Schedule Code</th><th>Description</th><th>Professor</th><th>Block Section</th><th>Actions</th></tr>
                 </thead>
-                <tbody id="scheduleBody">
-                <tr>
-                    <td class="time-column">7:00 - 8:00</td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                </tr>
-                <tr>
-                    <td class="time-column">8:00 - 9:00</td>
-                    <td class="schedule-slot">
-                        <div class="schedule-card">
-                            <div class="course-code">IT101</div>
-                            <div>BSIT-1A</div>
-                            <div class="instructor">Prof. Smith</div>
-                            <div>Rm 201</div>
-                        </div>
-                    </td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                    <td class="schedule-slot"></td>
-                </tr>
+                <tbody>
+                <!-- Example row -->
+                <tr><td>SCHD001</td><td>Intro to Programming</td><td>Dr. Smith</td><td>A</td>
+                    <td><a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editScheduleModal" data-parent="#main">Edit</a>
+                        <button class="btn btn-sm btn-danger">Delete</button></td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Assign Schedule Modal -->
-<div class="modal fade" id="assignScheduleModal" tabindex="-1" aria-labelledby="assignScheduleModalLabel" aria-hidden="true">
+<!-- Add Schedule Modal -->
+<div class="modal fade" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="assignScheduleModalLabel">Assign Subject to Section</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="addScheduleModalLabel">Add Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="assignScheduleForm">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="assignProgram" class="form-label">Program</label>
-                            <select class="form-select" id="assignProgram" required>
-                                <option value="" selected disabled>Select Program</option>
-                                <option value="BSIT">BSIT</option>
-                                <option value="BSCS">BSCS</option>
-                                <option value="BSIS">BSIS</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignYear" class="form-label">Year Level</label>
-                            <select class="form-select" id="assignYear" required>
-                                <option value="" selected disabled>Select Year Level</option>
-                                <option value="1">1st Year</option>
-                                <option value="2">2nd Year</option>
-                                <option value="3">3rd Year</option>
-                                <option value="4">4th Year</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignSection" class="form-label">Section</label>
-                            <select class="form-select" id="assignSection" required>
-                                <option value="" selected disabled>Select Section</option>
-                                <option value="A">Section A</option>
-                                <option value="B">Section B</option>
-                                <option value="C">Section C</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignSubject" class="form-label">Subject</label>
-                            <select class="form-select" id="assignSubject" required>
-                                <option value="" selected disabled>Select Subject</option>
-                                <option value="IT101">IT101 - Introduction to Computing</option>
-                                <option value="CS201">CS201 - Data Structures</option>
-                                <option value="IS301">IS301 - Database Systems</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignDay" class="form-label">Day</label>
-                            <select class="form-select" id="assignDay" required>
-                                <option value="" selected disabled>Select Day</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignTime" class="form-label">Time Slot</label>
-                            <select class="form-select" id="assignTime" required>
-                                <option value="" selected disabled>Select Time Slot</option>
-                                <option value="7:00-8:00">7:00 AM - 8:00 AM</option>
-                                <option value="8:00-9:00">8:00 AM - 9:00 AM</option>
-                                <option value="9:00-10:00">9:00 AM - 10:00 AM</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignInstructor" class="form-label">Instructor</label>
-                            <select class="form-select" id="assignInstructor" required>
-                                <option value="" selected disabled>Select Instructor</option>
-                                <option value="1">Prof. Smith</option>
-                                <option value="2">Prof. Johnson</option>
-                                <option value="3">Prof. Williams</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="assignRoom" class="form-label">Room</label>
-                            <input type="text" class="form-control" id="assignRoom" required>
-                        </div>
-                    </div>
-                </form>
+                <!-- Course selector -->
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Course</label>
+                    <select class="form-select"><option>Select</option>
+                        @{
+                            var courses = ViewBag.Course as List<Fresh_University_Enrollment.Models.Course>;
+                        }
+                        @if (courses != null && courses.Any())
+                        {
+                            foreach (var course in courses)
+                            {
+                                <option value="@course.Crs_Code">@course.Crs_Title</option>
+                            }
+                        }
+                        else
+                        {
+                            <option disabled>No Course found</option>
+                        }
+                    
+                        </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-primary">
+                        <tr><th>Session Number</th><th>Day</th><th>Start</th><th>End</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody>
+                        <!-- Example row -->
+                        <tr><td>1</td><td>Monday</td><td>08:00</td><td>09:00</td>
+                            <td><button class="btn btn-sm btn-outline-primary edit-session-btn" data-bs-toggle="modal" data-bs-target="#editSessionModal" data-parent="#addScheduleModal">Edit</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveScheduleBtn">Assign Schedule</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSessionModal" data-parent="#addScheduleModal">Add Session</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- Edit Schedule Modal -->
+<div class="modal fade" id="editScheduleModal" tabindex="-1" aria-labelledby="editScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editScheduleModalLabel">Edit Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-primary">
+                        <tr><th>Session Number</th><th>Day</th><th>Start</th><th>End</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody>
+                        <!-- Example row -->
+                        <tr><td>1</td><td>Tuesday</td><td>10:00</td><td>11:00</td>
+                            <td><button class="btn btn-sm btn-outline-primary edit-session-btn" data-bs-toggle="modal" data-bs-target="#editSessionModal" data-parent="#editScheduleModal">Edit</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSessionModal" data-parent="#editScheduleModal">Add Session</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Session Modal -->
+<div class="modal fade" id="addSessionModal" tabindex="-1" aria-labelledby="addSessionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSessionModalLabel">Add Session</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6"><label>Day</label><select class="form-select"><option>Monday</option></select></div>
+                        <div class="col-md-3"><label>Start</label><input type="time" class="form-control" /></div>
+                        <div class="col-md-3"><label>End</label><input type="time" class="form-control" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="saveSessionBtn" data-bs-dismiss="modal">Save Session</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Session Modal -->
+<div class="modal fade" id="editSessionModal" tabindex="-1" aria-labelledby="editSessionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSessionModalLabel">Edit Session</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6"><label>Day</label><select class="form-select"><option>Tuesday</option></select></div>
+                        <div class="col-md-3"><label>Start</label><input type="time" class="form-control" /></div>
+                        <div class="col-md-3"><label>End</label><input type="time" class="form-control" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="saveEditedSessionBtn" data-bs-dismiss="modal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Content/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-        
-                const currentPath = window.location.pathname;
-                const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-                const navLinks = document.querySelectorAll('#navbarNavProgramHead .nav-link');
-                navLinks.forEach(link => {
-                    const linkHref = link.getAttribute('href');
-                    const linkPage = linkHref.substring(linkHref.lastIndexOf('/') + 1);
-
-                    if (linkPage.toLowerCase() === currentPage.toLowerCase()) {
-                        link.classList.add('active');
-                        link.setAttribute('aria-current', 'page');
-                    } else {
-                        link.classList.remove('active');
-                        link.removeAttribute('aria-current');
-                    }
-                });
-            })
-        const assignScheduleModal = new bootstrap.Modal(document.getElementById('assignScheduleModal'));
-
-        document.getElementById('saveScheduleBtn').addEventListener('click', function () {
-            const program = document.getElementById('assignProgram').value;
-            const year = document.getElementById('assignYear').value;
-            const section = document.getElementById('assignSection').value;
-            const subject = document.getElementById('assignSubject').value;
-            const day = document.getElementById('assignDay').value;
-            const time = document.getElementById('assignTime').value;
-            const instructor = document.getElementById('assignInstructor').value;
-            const room = document.getElementById('assignRoom').value;
-
-            if (!program || !year || !section || !subject || !day || !time || !instructor || !room) {
-                alert('Please fill in all fields');
-                return;
-            }
-
-            addScheduleToTable(program, year, section, subject, day, time, instructor, room);
-            assignScheduleModal.hide();
-            document.getElementById('assignScheduleForm').reset();
+    let lastParent;
+    document.querySelectorAll('[data-bs-target="#addSessionModal"]').forEach(btn => {
+        btn.addEventListener('click', e => lastParent = btn.getAttribute('data-parent'));
+    });
+    document.querySelectorAll('.edit-session-btn').forEach(btn => {
+        btn.addEventListener('click', e => lastParent = btn.getAttribute('data-parent'));
+    });
+    const childModals = ['addSessionModal','editSessionModal'];
+    childModals.forEach(id => {
+        const modalEl = document.getElementById(id);
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            if (lastParent) new bootstrap.Modal(document.querySelector(lastParent)).show();
         });
-
-        function addScheduleToTable(program, year, section, subject, day, time, instructor, room) {
-            const [startTime] = time.split('-');
-            const timeRow = findTimeRow(startTime.trim());
-            if (!timeRow) {
-                alert('Could not find the specified time slot in the schedule');
-                return;
-            }
-
-            const dayIndex = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(day) + 1;
-            const dayCell = timeRow.cells[dayIndex];
-            dayCell.innerHTML = '';
-
-            const card = document.createElement('div');
-            card.className = 'schedule-card';
-            card.innerHTML = `
-                    <div class="course-code">${subject.split(' - ')[0]}</div>
-                    <div>${program}-${year}${section}</div>
-                    <div class="instructor">${instructor}</div>
-                    <div>Rm ${room}</div>
-                `;
-
-            const actions = document.createElement('div');
-            actions.className = 'schedule-actions mt-2';
-            actions.innerHTML = `
-                    <button class="btn btn-sm btn-outline-primary me-1 edit-btn">Edit</button>
-                    <button class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
-                `;
-
-            card.appendChild(actions);
-            dayCell.appendChild(card);
-
-            card.querySelector('.edit-btn').addEventListener('click', function () {
-                alert('Edit functionality would go here');
-            });
-
-            card.querySelector('.delete-btn').addEventListener('click', function () {
-                if (confirm('Are you sure you want to delete this schedule?')) {
-                    dayCell.innerHTML = '';
-                }
-            });
-        }
-
-        function findTimeRow(time) {
-            const rows = document.querySelectorAll('#scheduleBody tr');
-            for (let row of rows) {
-                if (row.cells[0].textContent.includes(time)) {
-                    return row;
-                }
-            }
-            return null;
-        }
-
-        document.getElementById('programFilter').addEventListener('change', filterSchedule);
-        document.getElementById('yearLevelFilter').addEventListener('change', filterSchedule);
-        document.getElementById('sectionFilter').addEventListener('change', filterSchedule);
-
-        function filterSchedule() {
-            const programFilter = document.getElementById('programFilter').value;
-            const yearFilter = document.getElementById('yearLevelFilter').value;
-            const sectionFilter = document.getElementById('sectionFilter').value;
-
-            let filterText = '';
-            if (programFilter) filterText += `Program: ${programFilter} `;
-            if (yearFilter) filterText += `Year: ${yearFilter} `;
-            if (sectionFilter) filterText += `Section: ${sectionFilter}`;
-
-            if (filterText) {
-                alert(`Filtering by ${filterText}. In a real app, this would filter the schedule.`);
-            }
-        }
+    });
 </script>
 </body>
 </html>

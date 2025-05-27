@@ -136,10 +136,21 @@
                     <div class="col-md-3">
                         <label for="program" class="form-label">Program</label>
                         <select class="form-select" id="program" name="program">
-                            <option selected disabled>Choose...</option>
-                            <option value="BSIT">BS Information Technology</option>
-                            <option value="BSCS">BS Computer Science</option>
-                            <option value="BSEE">BS Electrical Engineering</option>
+                            <option value="" selected disabled>Choose Program...</option>
+                            @{
+                                var programs = ViewBag.Programs as List<Fresh_University_Enrollment.Models.Program>;
+                            }
+                            @if (programs != null && programs.Any())
+                            {
+                                foreach (var program in programs)
+                                {
+                                    <option value="@program.ProgCode">@program.ProgTitle</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No programs found</option>
+                            }
                         </select>
                     </div>
                     <div class="col-md-3">

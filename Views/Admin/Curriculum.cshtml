@@ -1,4 +1,3 @@
-@model IEnumerable<Fresh_University_Enrollment.Models.Program>
 
 @{
     Layout = "~/Views/Shared/_AdminHeader.cshtml";
@@ -66,9 +65,12 @@
                 <label for="programSelect" class="form-label">Select Program:</label>
                 <select class="form-select" id="programSelect" name="programSelect">
                     <option value="" selected disabled>Choose Program...</option>
-                    @if (Model != null && Model.Any())
+                    @{
+                        var programs = ViewBag.Programs as List<Fresh_University_Enrollment.Models.Program>;
+                    }
+                    @if (programs?.Any() == true)
                     {
-                        foreach (var program in Model)
+                        foreach (var program in programs)
                         {
                             <option value="@program.ProgCode">@program.ProgTitle</option>
                         }
@@ -83,6 +85,20 @@
                 <label for="academicYearSelect" class="form-label">Academic Year:</label>
                 <select class="form-select" id="academicYearSelect" name="academicYearSelect" disabled>
                     <option value="" selected disabled>Choose Academic Year...</option>
+                        @{
+                            var academicYears = ViewBag.AcademicYears as List<Fresh_University_Enrollment.Models.AcademicYear>;
+                        }
+                        @if (academicYears?.Any() == true)
+                        {
+                            foreach (var academicYear in academicYears)
+                            {
+                                <option value="@academicYear.AyStartYear">@academicYear.AyEndYear</option>
+                            }
+                        }   
+                        else
+                        {
+                            <option disabled>No Academic Year found</option>
+                        }
                 </select>
             </div>
             <div class="col-md-4">
