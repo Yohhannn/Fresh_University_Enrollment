@@ -14,7 +14,8 @@ namespace Fresh_University_Enrollment.Controllers
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["Enrollment"].ConnectionString;
 
 [HttpGet]
-public JsonResult GetAvailableSubjects()
+public JsonResult GetAvailableSubjects(string cur_year_level, string cur_semester, string prog_code)
+
 {
     try
     {
@@ -34,36 +35,47 @@ public JsonResult GetAvailableSubjects()
                     c.crs_units
                 FROM schedule s
                 JOIN course c ON s.crs_code = c.crs_code
-                JOIN session se ON s.schd_id = se.schd_id";
+                JOIN session se ON s.schd_id = se.schd_id
+                JOIN curriculum_course cc ON cc.crs_code = s.crs_code
+                WHERE cc.cur_year_level = @cur_year_level
+                  AND cc.cur_semester = @cur_semester
+                  AND cc.prog_code = @prog_code";
 
             using (var cmd = new NpgsqlCommand(query, conn))
-            using (var reader = cmd.ExecuteReader())
             {
-                while (reader.Read())
+                // cmd.Parameters.AddWithValue("@crs_code", crs_code);
+                cmd.Parameters.AddWithValue("@cur_year_level", cur_year_level);
+                cmd.Parameters.AddWithValue("@cur_semester", cur_semester);
+                cmd.Parameters.AddWithValue("@prog_code", prog_code);
+
+                using (var reader = cmd.ExecuteReader())
                 {
-                    var dayNum = Convert.ToInt32(reader["tsl_day"]);
-                    var dayStr = dayNum switch
+                    while (reader.Read())
                     {
-                        1 => "M",
-                        2 => "T",
-                        3 => "W",
-                        4 => "Th",
-                        5 => "F",
-                        _ => "N/A"
-                    };
+                        var dayNum = Convert.ToInt32(reader["tsl_day"]);
+                        var dayStr = dayNum switch
+                        {
+                            1 => "M",
+                            2 => "T",
+                            3 => "W",
+                            4 => "Th",
+                            5 => "F",
+                            _ => "N/A"
+                        };
 
-                    var startTime = reader["tsl_start_time"] == DBNull.Value ? "" : reader["tsl_start_time"].ToString();
-                    var endTime = reader["tsl_end_time"] == DBNull.Value ? "" : reader["tsl_end_time"].ToString();
+                        var startTime = reader["tsl_start_time"] == DBNull.Value ? "" : reader["tsl_start_time"].ToString();
+                        var endTime = reader["tsl_end_time"] == DBNull.Value ? "" : reader["tsl_end_time"].ToString();
 
-                    subjects.Add(new SubjectViewModel
-                    {
-                        CourseCode = reader["crs_code"]?.ToString(),
-                        Title = reader["crs_title"]?.ToString(),
-                        Time = $"{startTime} - {endTime}",
-                        Days = dayStr,
-                        Room = "N/A",
-                        Units = Convert.ToInt32(reader["crs_units"])
-                    });
+                        subjects.Add(new SubjectViewModel
+                        {
+                            CourseCode = reader["crs_code"]?.ToString(),
+                            Title = reader["crs_title"]?.ToString(),
+                            Time = $"{startTime} - {endTime}",
+                            Days = dayStr,
+                            Room = "N/A",
+                            Units = Convert.ToInt32(reader["crs_units"])
+                        });
+                    }
                 }
             }
         }
@@ -75,6 +87,8 @@ public JsonResult GetAvailableSubjects()
         return Json(new { error = ex.Message, stackTrace = ex.StackTrace }, JsonRequestBehavior.AllowGet);
     }
 }
+
+
 
 
 
@@ -106,6 +120,8 @@ public JsonResult GetAvailableSubjects()
                 // Load programs for dropdown
                 var programs = GetProgramsFromDatabase();
                 ViewBag.Programs = programs;
+                var academicYears = GetAcademicYears();
+                ViewBag.AcademicYears = academicYears;
 
                 // Return the view with student model and programs in ViewBag
                 return View("~/Views/Main/StudentEnroll.cshtml", student);
@@ -176,5 +192,32 @@ public JsonResult GetAvailableSubjects()
             }
             return programs;
         }
+        private List<AcademicYear> GetAcademicYears()
+        {
+            var academicYears = new List<AcademicYear>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT ay_code, ay_start_year, ay_end_year FROM academic_year", conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            academicYears.Add(new AcademicYear
+                            {
+                                AyCode = reader.GetString(0),
+                                AyStartYear = reader.GetInt32(1),
+                                AyEndYear = reader.GetInt32(2)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return academicYears;
+        }
+
     }
 }

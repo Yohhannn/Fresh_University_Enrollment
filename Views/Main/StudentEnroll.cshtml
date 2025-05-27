@@ -58,14 +58,49 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-4">
                     <div class="col-md-3">
-                        <label class="form-label">School Year</label>
-                        <input type="text" class="form-control" name="schoolYear" placeholder="e.g., 2024-2025">
+                        <label class="form-label">Academic Year</label>
+                        <select class="form-select" name="Academic Year" id="schoolYear">
+                            <option selected disabled>Choose S.Y...</option>
+                            @{
+                                var academicYears = ViewBag.AcademicYears as List<Fresh_University_Enrollment.Models.AcademicYear>;
+                            }
+                            @if (academicYears != null && academicYears.Any())
+                            {
+                                foreach (var academicYear in academicYears)
+                                {
+                                    <option value="@academicYear.AyCode">@($"{academicYear.AyStartYear}-{academicYear.AyEndYear}")</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>No academic year found</option>
+                            }
+
+                            @* @{ *@
+                            @*     var academicYears = ViewBag.AcademicYears as List<Fresh_University_Enrollment.Models.AcademicYear>; *@
+                            @* } *@
+                            @* @if (academicYears?.Any() == true) *@
+                            @* { *@
+                            @*     foreach (var academicYear in academicYears) *@
+                            @*     { *@
+                            @*         <option value="@academicYear.AyCode"> *@
+                            @*             @($"{academicYear.AyStartYear}-{academicYear.AyEndYear}") *@
+                            @*         </option> *@
+                            @*     } *@
+                            @* } *@
+                            @* else *@
+                            @* { *@
+                            @*     <option disabled>No Academic Year found</option> *@
+                            @* } *@
+                        </select>
+
                     </div>
+                    
                     <div class="col-md-3">
                         <label class="form-label">Semester</label>
-                        <select class="form-select" name="enrollmentSemester">
+                        <select class="form-select" name="enrollmentSemester" id="enrollmentSemester">
                             <option selected disabled>Choose...</option>
                             <option value="1st Semester">1st Semester</option>
                             <option value="2nd Semester">2nd Semester</option>
@@ -126,7 +161,7 @@
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <label class="form-label">Year Level</label>
-                        <select class="form-select" name="yearLevel">
+                        <select class="form-select" name="yearLevel" id="yearLevel">
                             <option selected disabled>Choose...</option>
                             <option value="1st Year">1st Year</option>
                             <option value="2nd Year">2nd Year</option>
@@ -134,13 +169,10 @@
                             <option value="4th Year">4th Year</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Major</label>
-                        <input type="text" class="form-control" name="major" placeholder="e.g., Software Dev">
-                    </div>
+
                     <div class="col-md-3">
                         <label class="form-label">Program</label>
-                        <select class="form-select" name="program">
+                        <select class="form-select" name="program" id="program">
                             <option value="" selected disabled>Choose Program...</option>
                             @{
                                 var programs = ViewBag.Programs as List<Fresh_University_Enrollment.Models.Program>;
@@ -222,36 +254,53 @@
 <script src="@Url.Content("~/Scripts/bootstrap.bundle.min.js")"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        
         const selectSubjectsBtn = document.getElementById('selectSubjectsBtn');
         const subjectSelectionArea = document.getElementById('subjectSelectionArea');
         const availableSubjectsTableBody = document.getElementById('availableSubjectsTableBody');
         const selectedSubjectsTableBody = document.getElementById('selectedSubjectsTableBody');
         const totalUnitsDisplay = document.getElementById('totalUnitsDisplay');
 
+
+
         selectSubjectsBtn.addEventListener('click', function () {
+            const semester = document.getElementById('enrollmentSemester').value;
+            const yearLevel = document.getElementById('yearLevel').value;
+            const program = document.getElementById('program').value;
+
+            if (!semester || !yearLevel || !program) {
+                alert("Please select Program, Year Level, and Semester before proceeding.");
+                return;
+            }
+
             subjectSelectionArea.style.display = 'block';
-            loadAvailableSubjects();
+            loadAvailableSubjects(semester, yearLevel, program);
         });
 
+
+
         // Load subjects from API and populate table
-        function loadAvailableSubjects() {
-            fetch('@Url.Action("GetAvailableSubjects", "StudentEnrollment")') // Replace with your actual controller name
+        function loadAvailableSubjects(semester, yearLevel, program) {
+            const url = `@Url.Action("GetAvailableSubjects", "StudentEnrollment")` +
+                `?cur_semester=${semester}&cur_year_level=${yearLevel}&prog_code=${program}`;
+
+            fetch(url)
                 .then(response => response.json())
                 .then(subjects => {
-                    availableSubjectsTableBody.innerHTML = ''; // clear existing rows
+                    availableSubjectsTableBody.innerHTML = ''; // Clear existing rows
 
                     subjects.forEach(sub => {
                         const row = document.createElement('tr');
 
                         row.innerHTML = `
-                        <td>${sub.CourseCode}</td>
-                        <td>${sub.Title}</td>
-                        <td>${sub.Time}</td>
-                        <td>${sub.Days}</td>
-                        <td>${sub.Room}</td>
-                        <td class="units-cell">${sub.Units}</td>
-                        <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
-                    `;
+                    <td>${sub.CourseCode}</td>
+                    <td>${sub.Title}</td>
+                    <td>${sub.Time}</td>
+                    <td>${sub.Days}</td>
+                    <td>${sub.Room}</td>
+                    <td class="units-cell">${sub.Units}</td>
+                    <td><button type="button" class="btn btn-success btn-sm add-subject-btn">Add</button></td>
+                `;
 
                         availableSubjectsTableBody.appendChild(row);
                     });
@@ -260,6 +309,7 @@
                     console.error('Error fetching subjects:', error);
                 });
         }
+
 
         availableSubjectsTableBody.addEventListener('click', function (e) {
             if (e.target.classList.contains('add-subject-btn')) {
