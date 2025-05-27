@@ -38,8 +38,9 @@ namespace Fresh_University_Enrollment.Controllers
         }
 
         // GET: /Course/GetAllCourses
+        // GET: /Course/GetAllCourses?progCode=XXX&ayCode=YYY
         [HttpGet]
-        public JsonResult GetAllCourses()
+        public JsonResult GetAllCourses(string progCode = null, string ayCode = null)
         {
             var courses = new List<dynamic>();
             try
@@ -47,7 +48,8 @@ namespace Fresh_University_Enrollment.Controllers
                 using (var db = new NpgsqlConnection(_connectionString))
                 {
                     db.Open();
-                    using (var cmd = new NpgsqlCommand(@"
+
+                    string sql = @"
                         SELECT 
                             c.crs_code, 
                             c.crs_title, 
@@ -60,7 +62,14 @@ namespace Fresh_University_Enrollment.Controllers
                         LEFT JOIN course_category cat ON c.ctg_code = cat.ctg_code
                         LEFT JOIN prerequisite p ON p.crs_code = c.crs_code
                     ", db))
+
                     {
+                        if (!string.IsNullOrEmpty(progCode) && !string.IsNullOrEmpty(ayCode))
+                        {
+                            cmd.Parameters.AddWithValue("@progCode", progCode);
+                            cmd.Parameters.AddWithValue("@ayCode", ayCode);
+                        }
+
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -88,6 +97,7 @@ namespace Fresh_University_Enrollment.Controllers
 
             return Json(courses, JsonRequestBehavior.AllowGet);
         }
+
 
         private List<Course> GetCoursesFromDatabase()
         {
