@@ -224,7 +224,6 @@
     <Content Include="Content\bootstrap.min.css-x" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\Simplex.css" />
     <Content Include="enrollment_db.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
