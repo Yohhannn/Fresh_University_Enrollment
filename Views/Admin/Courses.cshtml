@@ -1,7 +1,7 @@
 @model IEnumerable<Fresh_University_Enrollment.Models.Course>
 
 @{
-Layout = "~/Views/Shared/_AdminHeader.cshtml";
+    Layout = "~/Views/Shared/_AdminHeader.cshtml";
 }
 
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ Layout = "~/Views/Shared/_AdminHeader.cshtml";
 <!-- Header Placeholder -->
 <div id="admin-header-placeholder">
     @{
-    // Render the admin header as a partial view
+        // Render the admin header as a partial view
     }
 </div>
 
@@ -62,58 +62,82 @@ Layout = "~/Views/Shared/_AdminHeader.cshtml";
 <!-- Courses List Table -->
 <div class="course-table mb-5">
     <h3 class="mb-3">Courses List</h3>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="table-primary">
-                <tr>
-                    <th>Course Code</th>
-                    <th>Descriptive Title</th>
-                    <th>Course Category</th> <!-- Added new column -->
-                    <th>Co-/Prerequisite</th>
-                    <th>Units</th>
-                    <th>Lec Hours</th>
-                    <th>Lab Hours</th>
-                    <th>Actions</th>
-                </tr>
+            <tr>
+                <th>Course Code</th>
+                <th>Descriptive Title</th>
+                <th>Course Category</th>
+                <th>Co-/Prerequisite</th>
+                <th>Units</th>
+                <th>Lec Hours</th>
+                <th>Lab Hours</th>
+                <th>Actions</th>
+            </tr>
             </thead>
             <tbody>
-                @if (Model == null || !Model.Any())
+            @if (Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="8" class="text-center text-muted">No courses found.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var course in Model)
                 {
                     <tr>
-                        <td colspan="8" class="text-center text-muted">No courses found.</td>
+                        <td>@course.Crs_Code</td>
+                        <td>@course.Crs_Title</td>
+                        <td>@course.Ctg_Name</td>
+                        <td>
+                            @if (string.IsNullOrEmpty(course.Preq_Crs_Code))
+                            {
+                                <text>None</text>
+                            }
+                            else
+                            {
+                                @course.Preq_Crs_Code
+                            }
+                        </td>
+                        <td>@course.Crs_Units</td>
+                        <td>@course.Crs_Lec</td>
+                        <td>@course.Crs_Lab</td>
+                        <td class="action-buttons">
+                            @Html.ActionLink("Edit", "EditCourse", "Admin", new { id = course.Crs_Code }, new { @class = "btn btn-sm btn-warning" })
+
+                            <!-- Delete Button with Confirmation -->
+                            <a href="javascript:void(0);"
+                               class="btn btn-sm btn-danger"
+                               onclick="confirmDelete('@course.Crs_Code')">
+                                Delete
+                            </a>
+
+                            <!-- Hidden Form for Safe Deletion -->
+                            <form id="deleteForm_@course.Crs_Code"
+                                  method="post"
+                                  action="@Url.Action("DeleteCourse", "Course")"
+                                  style="display: none;">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@course.Crs_Code" />
+                            </form>
+                        </td>
                     </tr>
                 }
-                else
-                {
-                    foreach (var course in Model)
-                    {
-                        <tr>
-                            <td>@course.Crs_Code</td>
-                            <td>@course.Crs_Title</td>
-                            <td>@course.Ctg_Name</td>
-                            <td>
-                                @if (string.IsNullOrEmpty(course.Preq_Crs_Code))
-                                {
-                                    <text>None</text>
-                                }
-                                else
-                                {
-                                    @course.Preq_Crs_Code
-                                }
-                            </td>
-                            <td>@course.Crs_Units</td>
-                            <td>@course.Crs_Lec</td>
-                            <td>@course.Crs_Lab</td>
-                            <td class="action-buttons">
-                                @Html.ActionLink("Edit", "EditCourse", "Admin", new { id = course.Crs_Code }, new { @class = "btn btn-sm btn-warning" })
-                                @Html.ActionLink("Delete", "DeleteCourse", "Admin", new { id = course.Crs_Code }, new {
-                                    @class = "btn btn-sm btn-danger",
-                                    onclick = "return confirm('Are you sure you want to delete this course?');"
-                                })
-                            </td>
-                        </tr>
-                    }
-                }
+            }
             </tbody>
         </table>
     </div>
@@ -136,7 +160,7 @@ Layout = "~/Views/Shared/_AdminHeader.cshtml";
             const linkHref = link.getAttribute('href');
             const linkPage = linkHref ? linkHref.substring(linkHref.lastIndexOf('/') + 1) : '';
 
-            if (linkPage.ToLower() === currentPage.ToLower()) {
+            if (linkPage.toLowerCase() === currentPage.toLowerCase()) {
                 link.classList.add('active');
                 link.setAttribute('aria-current', 'page');
             } else {
@@ -145,6 +169,17 @@ Layout = "~/Views/Shared/_AdminHeader.cshtml";
             }
         });
     });
+
+    function confirmDelete(courseId) {
+        if (confirm('Are you sure you want to delete this course?')) {
+            var form = document.getElementById('deleteForm_' + courseId);
+            if (form) {
+                form.submit();
+            } else {
+                alert('Form not found for course: ' + courseId);
+            }
+        }
+    }
 </script>
 
 </body>
