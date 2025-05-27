@@ -48,22 +48,21 @@ $(document).ready(function () {
         }
     });
 
-    // Render available courses in the modal
-    function renderAvailableCourses(courses) {
+    // Render courses with separator line between selected and unselected
+    function renderAvailableCourses(selectedCourses, unselectedCourses) {
         $availableCoursesList.empty();
 
-        if (courses.length === 0) {
+        if (selectedCourses.length === 0 && unselectedCourses.length === 0) {
             $availableCoursesList.append(
                 '<tr><td colspan="8" class="text-center">No courses found.</td></tr>'
             );
             return;
         }
 
-        courses.forEach(course => {
-            const isChecked = selectedCoursesToAssign.has(course.code) ? 'checked' : '';
-            const $row = $(`
+        function createCourseRow(course, isChecked) {
+            return $(`
                 <tr>
-                    <td><input type="checkbox" class="course-checkbox" data-code="${course.code}" ${isChecked}></td>
+                    <td><input type="checkbox" class="course-checkbox" data-code="${course.code}" ${isChecked ? 'checked' : ''}></td>
                     <td>${course.code}</td>
                     <td>${course.title}</td>
                     <td>${course.category || ''}</td>
@@ -73,38 +72,73 @@ $(document).ready(function () {
                     <td>${course.lab !== undefined ? course.lab : ''}</td>
                 </tr>
             `);
-            $availableCoursesList.append($row);
+        }
+
+        // Append selected courses first
+        selectedCourses.forEach(course => {
+            $availableCoursesList.append(createCourseRow(course, true));
+        });
+
+        // Add separator only if both selected and unselected courses exist
+        if (selectedCourses.length > 0 && unselectedCourses.length > 0) {
+            $availableCoursesList.append(`
+                <tr><td colspan="8" style="border-top: 2px solid #007bff; padding: 0;"></td></tr>
+            `);
+        }
+
+        // Append unselected courses next
+        unselectedCourses.forEach(course => {
+            $availableCoursesList.append(createCourseRow(course, false));
         });
     }
 
-    // Fetch all courses for assigning
+    // Fetch all courses and assigned courses, then render
     function fetchCourses() {
-        $availableCoursesList.empty();
-        $availableCoursesList.append('<tr><td colspan="8" class="text-center">Loading courses...</td></tr>');
+        const selectedProg = $programSelect.val();
+        const selectedYear = $yearLevelSelect.val();
+        const selectedSemester = $semesterSelect.val();
+        const selectedAY = $academicYearSelect.val();
 
-        return $.ajax({
-            url: '/Course/GetAllCourses',
-            method: 'GET',
-            dataType: 'json'
-        })
-            .done(function (data) {
-                allAvailableCourses = data.map(c => ({
-                    code: c.code,
-                    title: c.title,
-                    category: c.category || '',
-                    prerequisite: c.prerequisite || 'None',
-                    units: c.units || '',
-                    lec: c.lec || '',
-                    lab: c.lab || ''
-                }));
-                renderAvailableCourses(allAvailableCourses);
+        $availableCoursesList.empty().append('<tr><td colspan="8" class="text-center">Loading courses...</td></tr>');
+
+        return $.when(
+            $.get('/Course/GetAllCourses'),
+            $.get('/CurriculumCourse/GetAssignedCourses', {
+                progCode: selectedProg,
+                yearLevel: selectedYear,
+                semester: selectedSemester,
+                ayCode: selectedAY
             })
-            .fail(function () {
-                $availableCoursesList.empty();
-                $availableCoursesList.append(
-                    '<tr><td colspan="8" class="text-center text-danger">Failed to load courses.</td></tr>'
-                );
-            });
+        ).done(function (allCoursesRes, assignedCoursesRes) {
+            allAvailableCourses = allCoursesRes[0]; // unwrap jQuery response array
+            const assignedCodes = new Set(assignedCoursesRes[0].map(c => c.code));
+            selectedCoursesToAssign = new Set(assignedCodes); // Pre-check assigned courses
+
+            // Render with selected courses on top
+            renderFilteredCourses();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error('❌ Failed to fetch courses: ', textStatus, errorThrown);
+            console.log('🔍 Full response:', jqXHR.responseText);
+            $availableCoursesList.empty().append(
+                '<tr><td colspan="8" class="text-center text-danger">Failed to load courses.</td></tr>'
+            );
+        });
+    }
+
+    // Renders filtered & sorted courses based on current search and selected courses
+    function renderFilteredCourses() {
+        const query = $courseSearch.val().toLowerCase();
+
+        // Filter courses by search term
+        const filtered = allAvailableCourses.filter(c =>
+            c.code.toLowerCase().includes(query) || c.title.toLowerCase().includes(query)
+        );
+
+        // Sort: selected courses first, then unselected
+        const selectedCourses = filtered.filter(c => selectedCoursesToAssign.has(c.code));
+        const unselectedCourses = filtered.filter(c => !selectedCoursesToAssign.has(c.code));
+
+        renderAvailableCourses(selectedCourses, unselectedCourses);
     }
 
     // Show modal setup
@@ -128,14 +162,10 @@ $(document).ready(function () {
 
     // Course search filter
     $courseSearch.on('input', function () {
-        const query = $(this).val().toLowerCase();
-        const filtered = allAvailableCourses.filter(
-            c => c.code.toLowerCase().includes(query) || c.title.toLowerCase().includes(query)
-        );
-        renderAvailableCourses(filtered);
+        renderFilteredCourses();
     });
 
-    // Track selected courses in modal
+    // Track selected courses and re-render on checkbox change
     $availableCoursesList.on('change', '.course-checkbox', function () {
         const courseCode = $(this).data('code');
         if ($(this).is(':checked')) {
@@ -143,6 +173,8 @@ $(document).ready(function () {
         } else {
             selectedCoursesToAssign.delete(courseCode);
         }
+        // Re-render filtered list with checked courses on top
+        renderFilteredCourses();
     });
 
     // Confirm assigning selected courses

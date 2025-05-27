@@ -8,7 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="- Added auto fill out enrollment form">
-      <change beforePath="$PROJECT_DIR$/Web.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App_Start/RouteConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/App_Start/RouteConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/CurriculumCourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CurriculumCourseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/MyScript/Curriculum.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Admin/Curriculum.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Admin/Curriculum.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +40,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Yohhannn/Fresh_University_Enrollment.git",
-    "accountId": "61fdca46-29f3-4293-9bed-1de76fbf448f"
+    "accountId": "a31591a0-93bf-46cd-b961-b73bebd65d7b"
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
@@ -64,7 +69,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev-null",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -80,8 +85,13 @@
       <option name="WORKING_DIRECTORY" value="" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="PTY_MODE" value="Auto" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
