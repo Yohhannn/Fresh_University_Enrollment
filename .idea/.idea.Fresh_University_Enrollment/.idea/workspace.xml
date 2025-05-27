@@ -8,9 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3e7d800-34df-40fc-b921-9544f37113d3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Controllers/CurriculumController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scripts/MyScript/AddCurriculum.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Fresh_University_Enrollment/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/CurriculumCourseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/CurriculumCourseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Fresh_University_Enrollment.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Admin/Curriculum.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Admin/Curriculum.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +82,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Fresh_University_Enrollment - IIS Express.executor": "Run",
+    "git-widget-placeholder": "ray-dev2",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="Fresh_University_Enrollment - IIS Express" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
